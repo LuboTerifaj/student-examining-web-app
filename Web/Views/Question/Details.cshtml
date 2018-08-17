@@ -1,0 +1,56 @@
+﻿@model Web.Models.QuestionDetailModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Question details</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">        
+        @Html.LabelFor(model => model.Question.Description, htmlAttributes: new { @class = "control-label col-md-2" })            
+        @Html.DisplayFor(model => model.Question.Description, new { htmlAttributes = new { @class = "form-control" } })       
+    </dl>
+    <dl>        
+        @Html.LabelFor(model => model.Question.Points, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.DisplayFor(model => model.Question.Points, new { htmlAttributes = new { @class = "form-control" } })            
+    </dl>
+    <dl>        
+        @Html.LabelFor(model => model.Question.Topic, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.DisplayFor(model => model.Question.Topic.Name, new { htmlAttributes = new { @class = "form-control" } })            
+    </dl>
+    @if (Model.Question.Explanation != null)
+    {
+        <dl>
+            @Html.LabelFor(model => model.Question.Explanation, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.DisplayFor(model => model.Question.Explanation, new { htmlAttributes = new { @class = "form-control" } })
+        </dl>
+    }
+    
+    <dl>        
+        @Html.LabelFor(model => model.Question.Type, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.DisplayFor(model => model.Question.Type, new { htmlAttributes = new { @class = "form-control" } })            
+    </dl>
+</div>
+
+<table class="table">
+    <caption><b>Answers</b></caption>
+    <tr>
+        <th>Description</th>
+        <th>Is correct</th>        
+    </tr>
+
+    @foreach (var item in Model.Question.Answers)
+    {
+        <tr>
+            <td>@item.Description</td>
+            <td>@item.IsCorrect</td>            
+        </tr>
+    }
+</table>
+
+    <div>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Question.QuestionID }) |
+        @Html.ActionLink("Back to List", "Index")
+    </div>

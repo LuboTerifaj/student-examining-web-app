@@ -1,0 +1,39 @@
+﻿@model Web.Models.TestViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Tests</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>Name</th>
+        <th>Open from</th>
+        <th>Open to</th>
+        <th>Operations</th>
+    </tr>
+
+@foreach (var item in Model.Tests) {
+    <tr>
+        <td>
+            @Html.ActionLink(item.Name, "TestRun", new { id = item.TestID })
+        </td>
+        <td>
+            @item.TimeFrom
+        </td>
+        <td>
+            @item.TimeTo
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.TestID }) | 
+            @Html.ActionLink("Details", "Details", new { id = item.TestID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.TestID })
+        </td>
+    </tr>
+}
+
+</table>

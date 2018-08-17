@@ -1,0 +1,44 @@
+﻿@model Web.Models.TopicDetailModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details of @Model.Topic.Name</h2>
+
+<div>    
+    <hr />
+    <dl class="dl-horizontal">
+    </dl>
+</div>
+
+<table class="table">
+    <tr>
+        <th>Subtopics</th>              
+    </tr>  
+    @foreach (var item in Model.Topic.InferiorTopics)
+    {
+        <tr>               
+            <td> @item.Name </td>                  
+        </tr>
+    }
+</table>
+
+<table class="table">
+    <tr>
+        <th>Questions</th>
+    </tr>
+    @foreach (var item in Model.Topic.Questions)
+    {
+        <tr>
+            <td> @item.Description </td>
+        </tr>
+    }
+</table>
+
+
+
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Topic.TopicID}) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

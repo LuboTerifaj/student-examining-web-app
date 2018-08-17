@@ -1,0 +1,35 @@
+﻿@model Web.Models.StudentGroupViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Student groups</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>Student group</th>
+        <th>Registration code</th>
+        <th>Operations</th>
+    </tr>
+
+@foreach (var item in Model.StudentGroups) {
+    <tr>
+        <td>
+            @item.Name
+        </td>
+        <td>
+            @item.RegistrateCode
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.StudentGroupID }) |
+          <!--  Html.ActionLink("Details", "Details", new { id = item.StudentGroupID }) | -->
+            @Html.ActionLink("Delete", "Delete", new { id = item.StudentGroupID })
+        </td>
+    </tr>
+}
+
+</table>

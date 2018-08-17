@@ -1,0 +1,100 @@
+﻿@model Web.Models.QuestionEditModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Question.Topic.TopicID)
+        @Html.HiddenFor(model => model.Question.QuestionID)
+        <div class="form-group">
+            @Html.LabelFor(model => model.Question.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Question.Description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Question.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Question.Points, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Question.Points, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Question.Points, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Question.Topic, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(x => x.SelectedTopic,
+            new SelectList(Model.Topics, "TopicID", "Name", Model.Topics.First().TopicID))
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Question.Explanation, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Question.Explanation, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Question.Explanation, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Question.Type, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EnumDropDownListFor(model => model.Question.Type, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Question.Type, "", new { @class = "text-danger" })
+            </div>
+        </div>   
+        
+        <div>
+            @Html.ActionLink("Add answer", "CreateAnswer", new { questionID = Model.Question.QuestionID }, htmlAttributes: new { @class = "control-label col-md-2" })
+        </div>     
+        @if (Model.Question.Answers.Count > 0)
+        {
+            <table class="table">
+                <caption><b>Answers</b></caption>
+                <tr>
+                    <th>Description</th>
+                    <th>Is correct</th>
+                    <th>Operations</th>
+                </tr>
+
+                @foreach (var item in Model.Question.Answers)
+                {
+                    <tr>
+                        <td>@item.Description</td>
+                        <td>@item.IsCorrect</td>
+                        <td>
+                        @Html.ActionLink("Delete", "DeleteAnswer", new { id = item.AnswerID })
+                        </td>
+                    </tr>
+                }
+            </table>
+        }
+                
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

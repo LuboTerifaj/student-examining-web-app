@@ -1,0 +1,42 @@
+﻿@model Web.Models.QuestionViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Questions</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>Question</th>
+        <th>Topic</th>
+        <th>Operations</th>
+    </tr>
+
+@foreach (var item in Model.Questions) {
+    <tr>
+        <td>
+            @item.Description
+        </td>
+        <td>
+            @item.Topic.Name
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.QuestionID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.QuestionID }) |
+
+            @if (item.Tests.Count > 0)
+            {
+                <text>Delete is not available because this question is used in a test.</text>
+            }
+            else {
+            @Html.ActionLink("Delete", "Delete", new { id = item.QuestionID })
+            }
+        </td>
+    </tr>
+}
+
+</table>

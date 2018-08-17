@@ -1,0 +1,40 @@
+﻿@model Web.Models.TestDetailModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details of @Model.Test.Name</h2>
+
+<div>
+    <dl class="dl-horizontal">
+    </dl>
+</div>
+
+<table class="table">
+    <tr>
+        <th>Student groups</th>
+    </tr>
+    @foreach (var item in Model.Test.StudentGroups)
+    {
+        <tr>
+            <td> @item.Name </td>
+        </tr>
+    }
+</table>
+
+<table class="table">
+    <tr>
+        <th>Questions</th>
+    </tr>
+    @foreach (var item in Model.Test.Questions)
+    {
+        <tr>
+            <td> @item.Description </td>
+        </tr>
+    }
+</table>
+<p>
+    <!-- Html.ActionLink("Edit", "Edit", new { id = Model.Test.TestID }) | -->
+    @Html.ActionLink("Back to List", "Index")
+</p>

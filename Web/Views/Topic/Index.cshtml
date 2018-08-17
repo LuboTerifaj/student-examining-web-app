@@ -1,0 +1,45 @@
+﻿@model Web.Models.TopicViewModel
+
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Topics</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>Topic</th>
+        <th>Parent topic</th>
+        <th>Operations</th>
+    </tr>
+
+    @foreach (var item in Model.Topics)
+    {
+        <tr>
+            <td>
+                @item.Name
+            </td>
+            <td>
+                @(item.SuperiorTopic != null ? item.SuperiorTopic.Name : "-")
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new {  id = item.TopicID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.TopicID }) |
+                @if (item.InferiorTopics.Count > 0 || item.TopicID == 0 || item.Questions.Count > 0)
+                {
+                    <text>Delete is not available because topic contains subtopics or questions.</text>
+                }
+                else
+                {
+                    @Html.ActionLink("Delete", "Delete", new { ID = item.TopicID })
+                }
+            </td>
+        </tr>
+    }
+
+
+</table>
